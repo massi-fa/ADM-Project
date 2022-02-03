@@ -36,7 +36,6 @@ const App = () => {
       });
   }, []);
 
-  console.log(fields);
   if (!data) {
     // You can render a placeholder if you like during the load, or just return null to render nothing.
     return null;

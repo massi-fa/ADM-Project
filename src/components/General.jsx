@@ -23,7 +23,7 @@ const General = ({
   <Container>
     {
       fields.map((element) => (
-        <Text key={element.key}>{element} = {values[element]} </Text>
+        <Text key={element}>{element} = {values[element]} </Text>
       ))
     }
   </Container>
@@ -31,7 +31,7 @@ const General = ({
 
 General.propTypes = {
   fields: PropTypes.arrayOf(PropTypes.any).isRequired,
-  values: PropTypes.oneOf([PropTypes.object, PropTypes.array]).isRequired,
+  values: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default General;
