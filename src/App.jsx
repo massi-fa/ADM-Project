@@ -30,7 +30,22 @@ const App = () => {
     // You can render a placeholder if you like during the load, or just return null to render nothing.
     return null;
   }
-
+  const [fields, setFields] = useState(null);
+  useEffect(() => {
+  db.collection("Grotte").orderBy('NOME').limit(1)
+    .get()
+    .then((querySnapshot,fields) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+           setFields(Object.getOwnPropertyNames(doc.data()));
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+}, []);
+  console.log(fields);
+  
   return (
     <Container>
       {
