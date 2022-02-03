@@ -16,10 +16,10 @@ const firebaseConfig = {
 };
 
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 console.log(firebaseApp);
-const db = getFirestore();
-db.collection("Grotte").where("COMUNE", "==", true)
+const db = firebase.firestore();
+db.collection("Grotte").where("COMUNE", "==", "ALGHERO")
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
