@@ -1,13 +1,9 @@
 /* eslint-disable */
 import React from 'react';
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from "firebase/app"
+import { getFirestore,collection, query, where,getDocs,then  } from "firebase/firestore"
+import { get  } from 'firebase/database';
+import firebase from "firebase/compat";
 const firebaseConfig = {
   apiKey: "AIzaSyB5U9rNuMCcTH4Fz_Y49Jg5YZrLdbX2wh4",
   authDomain: "adm-practice-test.firebaseapp.com",
@@ -19,49 +15,22 @@ const firebaseConfig = {
   measurementId: "G-YZV05N2KPM"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
 
-// Initialize Cloud Firestore through Firebase
-
-  
-var db = firebase.firestore();
-
-var menu =[  
-    {  
-       "id":1,
-       "name":"Focaccia al rosmarino",
-       "description":"Wood fired rosemary and garlic focaccia",
-       "price":8.50,
-       "type":"Appetizers"
-    },
-    {  
-       "id":2,
-       "name":"Burratta con speck",
-       "description":"Burratta cheese, imported smoked prok belly prosciutto, pached balsamic pear",
-       "price":13.50,
-       "type":"Appetizers"
-    }
- ]
-
-menu.forEach(function(obj) {
-    db.collection("menu").add({
-        id: obj.id,
-        name: obj.name,
-        description: obj.description,
-        price: obj.price,
-        type: obj.type
-    }).then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
+const firebaseApp = initializeApp(firebaseConfig);
+console.log(firebaseApp);
+const db = getFirestore();
+db.collection("Grotte").where("COMUNE", "==", true)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
     })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
     });
-});
+
 
 function App() {
   return (
